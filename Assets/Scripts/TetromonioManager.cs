@@ -5,8 +5,14 @@ using UnityEngine;
 public class TetromonioManager : MonoBehaviour
 {
     [SerializeField] GameObject centerPoint;
-    private float fallFactor=0.01f;
-    public bool canBeSpawned { get;  set; }
+    private float fallFactor=0.1f;
+    private bool canBeMoved = true;
+    private SpawnManager spawnManager;
+
+    private void Awake()
+    {
+        spawnManager = FindObjectOfType<SpawnManager>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -28,9 +34,19 @@ public class TetromonioManager : MonoBehaviour
 
     private void Move()
     {
-        if (IsMovementValid())
+        if (canBeMoved)
         {
+            // The Fall
             transform.position += new Vector3(0f, -fallFactor, 0f);
+            if (!IsMovementValid())
+            {
+                transform.position -= new Vector3(0f, -fallFactor, 0f);
+                canBeMoved = false;
+                spawnManager.Spawn();
+                return;
+            }
+
+            //The Right Movement
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 transform.position += Vector3.right;
@@ -39,6 +55,8 @@ public class TetromonioManager : MonoBehaviour
                     transform.position -= Vector3.right;
                 }
             }
+
+            //The Left Movement
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 transform.position += Vector3.left;
@@ -47,6 +65,8 @@ public class TetromonioManager : MonoBehaviour
                     transform.position -= Vector3.left;
                 }
             }
+
+            //The Rotation Movement
             else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 centerPoint.transform.eulerAngles -= new Vector3(0f, 0f, 90f);
