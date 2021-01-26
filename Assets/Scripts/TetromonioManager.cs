@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class TetromonioManager : MonoBehaviour
 {
+    #region FIELDS
     [SerializeField] GameObject centerPoint;
     private SpawnManager spawnManager;
-    private readonly static float fallFactor = 0.05f;
-    private readonly static int width = 20;
-    private readonly static int height = 20;
     private bool canBeMoved = true;
-    private static Transform[,] grid=new Transform[width, height];
+    #endregion
 
     private void Awake()
     {
@@ -27,7 +25,7 @@ public class TetromonioManager : MonoBehaviour
     {
         foreach (Transform block in centerPoint.transform)
         {
-            grid[Mathf.FloorToInt(block.position.x), Mathf.FloorToInt(block.position.y)]=block;
+            GameManager.Grid[Mathf.FloorToInt(block.position.x), Mathf.FloorToInt(block.position.y)]=block;
         }
     }
 
@@ -39,7 +37,7 @@ public class TetromonioManager : MonoBehaviour
             {
                 return false;
             }
-            if (grid[Mathf.FloorToInt(block.position.x), Mathf.FloorToInt(block.position.y)] != null)
+            if (GameManager.Grid[Mathf.FloorToInt(block.position.x), Mathf.FloorToInt(block.position.y)] != null)
             {
                 return false;
             }
@@ -52,10 +50,10 @@ public class TetromonioManager : MonoBehaviour
         if (canBeMoved)
         {
             //The Fall
-            transform.position += new Vector3(0f, -fallFactor, 0f);
+            transform.position += new Vector3(0f, -GameManager.FallFactor, 0f);
             if (!IsMovementValid())
             {
-                transform.position -= new Vector3(0f, -fallFactor, 0f);
+                transform.position -= new Vector3(0f, -GameManager.FallFactor, 0f);
                 canBeMoved = false;
                 Register();
                 spawnManager.Spawn();
