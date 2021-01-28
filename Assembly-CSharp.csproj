@@ -65,8 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\General\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Tetromonios\SpawnManager.cs" />
-    <Compile Include="Assets\Scripts\Tetromonios\TetromonioManager.cs" />
+    <Compile Include="Assets\Scripts\Tetromonios\SpawnController.cs" />
+    <Compile Include="Assets\Scripts\Tetromonios\TetromonioController.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Users/ahmet/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Visual Studio Code/2019.4.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
