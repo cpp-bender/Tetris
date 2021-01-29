@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class TetromonioController : MonoBehaviour
+public class TetromonioController : MonoBehaviour,ITetromonioControllerService
 {
     [SerializeField] GameObject centerPoint;
-    private SpawnController spawnController;
+    private ISpawnControllerService spawnController;
     private bool canBeMoved = true;
     private const int lastHeight = 0;
 
@@ -17,7 +17,22 @@ public class TetromonioController : MonoBehaviour
         Move();
     }
 
-    private void Move()
+    private bool OnMove()
+    {
+        foreach (Transform block in centerPoint.transform)
+        {
+            if (block.position.x <= 0.5 || block.position.x >= 20.5 || Mathf.FloorToInt(block.position.y) <= 0)
+            {
+                return false;
+            }
+            if (GameManager.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 1)] != null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public void Move()
     {
         if (canBeMoved)
         {
@@ -61,21 +76,6 @@ public class TetromonioController : MonoBehaviour
             }
         }
     }
-    private bool OnMove()
-    {
-        foreach (Transform block in centerPoint.transform)
-        {
-            if (block.position.x <= 0.5 || block.position.x >= 20.5 || Mathf.FloorToInt(block.position.y) <= 0)
-            {
-                return false;
-            }
-            if (GameManager.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 1)] != null)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
     private void SaveTetromonioToGrid()
     {
         foreach (Transform block in centerPoint.transform)
@@ -95,20 +95,20 @@ public class TetromonioController : MonoBehaviour
         ClearRow();
         ShiftRow();
     }
-    void ClearRow()
+    public void ClearRow()
     {
         for (int width = 0; width < GameManager.Width; width++)
         {
             Destroy(GameManager.Grid[width, lastHeight].gameObject);
         }
     }
-    void ShiftRow()
+    public void ShiftRow()
     {
         for (int width = 0; width < GameManager.Width; width++)
         {
-            for (int height = 0; height < GameManager.Height-1; height++)
+            for (int height = 0; height < GameManager.Height - 1; height++)
             {
-                if (GameManager.Grid[width,height+1]!=null)
+                if (GameManager.Grid[width, height + 1] != null)
                 {
                     GameManager.Grid[width, height] = GameManager.Grid[width, height + 1];
                     GameManager.Grid[width, height].gameObject.transform.position += new Vector3(0f, -1f, 0f);

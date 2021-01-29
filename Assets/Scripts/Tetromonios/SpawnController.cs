@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SpawnController : MonoBehaviour
+public class SpawnController : MonoBehaviour,ISpawnControllerService
 {
     [SerializeField] GameObject[] tetromonios;
 

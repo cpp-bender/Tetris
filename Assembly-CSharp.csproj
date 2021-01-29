@@ -65,6 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\General\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ISpawnControllerService.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ITetromonioControllerService.cs" />
     <Compile Include="Assets\Scripts\Tetromonios\SpawnController.cs" />
     <Compile Include="Assets\Scripts\Tetromonios\TetromonioController.cs" />
     <Reference Include="UnityEngine">
