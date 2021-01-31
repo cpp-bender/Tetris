@@ -16,7 +16,6 @@ public class TetromonioController : MonoBehaviour,ITetromonioControllerService
     {
         Move();
     }
-
     private bool OnMove()
     {
         foreach (Transform block in centerPoint.transform)
@@ -92,17 +91,18 @@ public class TetromonioController : MonoBehaviour,ITetromonioControllerService
                 return;
             }
         }
-        ClearRow();
-        ShiftRow();
+        FindObjectOfType<AudioController>().Play("RowDeletedSound");
+        ClearLastRow();
+        ShiftEachRow();
     }
-    public void ClearRow()
+    public void ClearLastRow()
     {
         for (int width = 0; width < GameManager.Width; width++)
         {
             Destroy(GameManager.Grid[width, lastHeight].gameObject);
         }
     }
-    public void ShiftRow()
+    public void ShiftEachRow()
     {
         for (int width = 0; width < GameManager.Width; width++)
         {

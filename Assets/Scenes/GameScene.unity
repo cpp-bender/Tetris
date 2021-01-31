@@ -200,7 +200,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1000, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &516182669
 GameObject:
@@ -247,12 +247,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetromonios:
   - {fileID: 85383194639420910, guid: a13f1669beb7ac34996fda3d404d78a3, type: 3}
-  - {fileID: 554780932274462743, guid: 5a3eb16b9ea0ce14ebc63f2cb0c225ae, type: 3}
-  - {fileID: 6972873099969025035, guid: 696a7e631e7d1d943824eb2c7448af09, type: 3}
-  - {fileID: 8718218308173243368, guid: 02d69239ca0e59f45bada169a20b5fb5, type: 3}
-  - {fileID: 2614063304574042132, guid: c6e490af9bedb8d4d9e322278cc2a93b, type: 3}
-  - {fileID: 5461247376470944816, guid: de3d311ba77b54740836fbdf1edc6b03, type: 3}
-  - {fileID: 364434006715442883, guid: e2eb3d0c9f1e81d46ba214b631af0669, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +328,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1403663703
 GameObject:
@@ -415,7 +409,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1000, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1906705084
 GameObject:
@@ -460,3 +454,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d176d815aaa0704586dafb54a53d2ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1966511698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1966511700}
+  - component: {fileID: 1966511699}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1966511699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966511698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cca4552ad1a0b3498cf2f130eab04be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: MainTheme
+    clip: {fileID: 8300000, guid: 4a86e94529b31d84b9132aa3ebbd58de, type: 3}
+    volume: 1
+    pitch: 1
+    isOnLoop: 1
+  - name: RowDeletedSound
+    clip: {fileID: 8300000, guid: 6b1ef28cbb5c4de40b4c2f9a8e9b7081, type: 3}
+    volume: 0.5
+    pitch: 1
+    isOnLoop: 0
+--- !u!4 &1966511700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966511698}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

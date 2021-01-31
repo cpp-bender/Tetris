@@ -7,8 +7,6 @@ public class GameManager : MonoBehaviour
     private static int width = 20;
     private static int height = 20;
     private static Transform[,] grid = new Transform[width, height];
-
-    public static GameManager Instance { get; private set; }
     public static float DropFactor { get { return dropFactor*Time.deltaTime; } }
     public static int Width { get { return width; } }
     public static int Height { get { return height; } }
@@ -16,18 +14,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            CreateTetromonioPool();
-            DontDestroyOnLoad(this.gameObject);
-            DontDestroyOnLoad(tetromonioPool);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-            Destroy(tetromonioPool);
-        }
+        CreateTetromonioPool();
+    }
+
+    private void Start()
+    {
+        FindObjectOfType<AudioController>().Play(name = "MainTheme");
     }
 
     private  void CreateTetromonioPool()

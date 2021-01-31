@@ -1,6 +1,6 @@
 ﻿public interface ITetromonioControllerService
 {
     void Move();
-    void ClearRow();
-    void ShiftRow();
+    void ClearLastRow();
+    void ShiftEachRow();
 }

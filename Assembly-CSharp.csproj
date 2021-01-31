@@ -64,7 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\General\AudioController.cs" />
     <Compile Include="Assets\Scripts\General\GameManager.cs" />
+    <Compile Include="Assets\Scripts\General\Sound.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IAudioControllerService.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ISpawnControllerService.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ITetromonioControllerService.cs" />
     <Compile Include="Assets\Scripts\Tetromonios\SpawnController.cs" />
