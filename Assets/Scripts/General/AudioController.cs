@@ -25,4 +25,9 @@ public class AudioController : MonoBehaviour,IAudioControllerService
         Sound soundToBePlayed = Array.Find(sounds, p => p.name == audioName);
         soundToBePlayed.source.Play();
     }
+    public void Stop(string audioName)
+    {
+        Sound soundToBeStopped = Array.Find(sounds, p => p.name == audioName);
+        soundToBeStopped.source.Stop();
+    }
 }

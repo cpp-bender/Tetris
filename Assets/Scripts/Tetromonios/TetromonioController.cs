@@ -1,17 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TetromonioController : MonoBehaviour,ITetromonioControllerService
 {
     [SerializeField] GameObject centerPoint;
     private ISpawnControllerService spawnController;
+    private IAudioControllerService audioControllerService;
+    private GameManager gameManager;
     private bool canBeMoved = true;
     private const int lastHeight = 0;
 
     private void Awake()
     {
         spawnController = FindObjectOfType<SpawnController>();
+        audioControllerService = FindObjectOfType<AudioController>();
+        gameManager = FindObjectOfType<GameManager>();
     }
-
     void Update()
     {
         Move();
@@ -33,7 +37,7 @@ public class TetromonioController : MonoBehaviour,ITetromonioControllerService
     }
     public void Move()
     {
-        if (canBeMoved)
+        if (canBeMoved && !GameManager.IsGameOver)
         {
             transform.position += new Vector3(0f, -GameManager.DropFactor, 0f);
             if (!OnMove())
@@ -44,6 +48,7 @@ public class TetromonioController : MonoBehaviour,ITetromonioControllerService
                 OnLastRowFull();
                 spawnController.Spawn();
                 GameManager.AddTetromonioToPool(transform);
+                IsGameOver();
                 return;
             }
 
@@ -91,7 +96,7 @@ public class TetromonioController : MonoBehaviour,ITetromonioControllerService
                 return;
             }
         }
-        FindObjectOfType<AudioController>().Play("RowDeletedSound");
+        audioControllerService.Play(name = "RowDeletedSound");
         ClearLastRow();
         ShiftEachRow();
     }
@@ -114,6 +119,18 @@ public class TetromonioController : MonoBehaviour,ITetromonioControllerService
                     GameManager.Grid[width, height].gameObject.transform.position += new Vector3(0f, -1f, 0f);
                     GameManager.Grid[width, height + 1] = null;
                 }
+            }
+        }
+    }
+    private void IsGameOver()
+    {
+        for (int x = 0; x < GameManager.Width; x++)
+        {
+            if (GameManager.Grid[x, 18] != null)
+            {
+                GameManager.IsGameOver = true;
+                gameManager.OnGameOver();
+                return;
             }
         }
     }

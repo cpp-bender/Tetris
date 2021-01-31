@@ -494,6 +494,11 @@ MonoBehaviour:
     volume: 0.5
     pitch: 1
     isOnLoop: 0
+  - name: GameOverSound
+    clip: {fileID: 8300000, guid: 6a72fb64b7b04bc449a2f6717691e56a, type: 3}
+    volume: 1
+    pitch: 1
+    isOnLoop: 0
 --- !u!4 &1966511700
 Transform:
   m_ObjectHideFlags: 0
