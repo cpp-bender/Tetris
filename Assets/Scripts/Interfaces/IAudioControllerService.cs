@@ -1,5 +1,8 @@
-﻿public interface IAudioControllerService
+﻿namespace Assets.Scripts.Interfaces
 {
-    void Play(string audioName);
-    void Stop(string audioName);
+    public interface IAudioControllerService
+    {
+        void Play(string audioName);
+        void Stop(string audioName);
+    }
 }

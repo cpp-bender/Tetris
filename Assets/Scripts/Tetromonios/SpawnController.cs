@@ -1,16 +1,20 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Interfaces;
+using UnityEngine;
 
-public class SpawnController : MonoBehaviour,ISpawnControllerService
+namespace Assets.Scripts.Tetromonios
 {
-    [SerializeField] GameObject[] tetromonios;
-
-    private void Awake()
+    public class SpawnController : MonoBehaviour, ISpawnControllerService
     {
-        Spawn();
-    }
+        [SerializeField] GameObject[] tetromonios;
 
-    public void Spawn()
-    {
-        Instantiate(tetromonios[Random.Range(0, tetromonios.Length)], transform.position, Quaternion.identity);
+        private void Awake()
+        {
+            Spawn();
+        }
+        public void Spawn()
+        {
+            int index = Random.Range(0, tetromonios.Length);
+            Instantiate(tetromonios[index], transform.position, Quaternion.identity);
+        }
     }
 }

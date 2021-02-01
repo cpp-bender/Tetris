@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 
-[System.Serializable]
-public  class Sound
+namespace Assets.Scripts.General
 {
-    public string name;
+    [System.Serializable]
+    public class Sound
+    {
+        public string name;
 
-    public AudioClip clip;
+        public AudioClip clip;
 
-    [Range(0f,1f)]
-    public float volume;
+        [Range(0f, 1f)]
+        public float volume;
 
-    [Range(0f,1f)]
-    public float pitch;
+        [Range(0f, 1f)]
+        public float pitch;
 
-    public bool isOnLoop;
+        public bool isOnLoop;
 
-    [HideInInspector]
-    internal AudioSource source;
+        [HideInInspector]
+        public AudioSource source;
+    }
 }

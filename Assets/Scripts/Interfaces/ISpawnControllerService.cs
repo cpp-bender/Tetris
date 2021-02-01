@@ -1,4 +1,7 @@
-﻿public interface ISpawnControllerService
+﻿namespace Assets.Scripts.Interfaces
 {
-    void Spawn();
+    public interface ISpawnControllerService
+    {
+        void Spawn();
+    }
 }

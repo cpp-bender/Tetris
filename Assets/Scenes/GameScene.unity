@@ -247,6 +247,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetromonios:
   - {fileID: 85383194639420910, guid: a13f1669beb7ac34996fda3d404d78a3, type: 3}
+  - {fileID: 554780932274462743, guid: 5a3eb16b9ea0ce14ebc63f2cb0c225ae, type: 3}
+  - {fileID: 6972873099969025035, guid: 696a7e631e7d1d943824eb2c7448af09, type: 3}
+  - {fileID: 8718218308173243368, guid: 02d69239ca0e59f45bada169a20b5fb5, type: 3}
+  - {fileID: 2614063304574042132, guid: c6e490af9bedb8d4d9e322278cc2a93b, type: 3}
+  - {fileID: 5461247376470944816, guid: de3d311ba77b54740836fbdf1edc6b03, type: 3}
+  - {fileID: 364434006715442883, guid: e2eb3d0c9f1e81d46ba214b631af0669, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,19 +492,22 @@ MonoBehaviour:
   sounds:
   - name: MainTheme
     clip: {fileID: 8300000, guid: 4a86e94529b31d84b9132aa3ebbd58de, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     isOnLoop: 1
+    source: {fileID: 0}
   - name: RowDeletedSound
     clip: {fileID: 8300000, guid: 6b1ef28cbb5c4de40b4c2f9a8e9b7081, type: 3}
     volume: 0.5
     pitch: 1
     isOnLoop: 0
+    source: {fileID: 0}
   - name: GameOverSound
     clip: {fileID: 8300000, guid: 6a72fb64b7b04bc449a2f6717691e56a, type: 3}
     volume: 1
     pitch: 1
     isOnLoop: 0
+    source: {fileID: 0}
 --- !u!4 &1966511700
 Transform:
   m_ObjectHideFlags: 0

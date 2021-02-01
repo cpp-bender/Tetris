@@ -1,6 +1,9 @@
-﻿public interface ITetromonioControllerService
+﻿namespace Assets.Scripts.Interfaces
 {
-    void Move();
-    void ClearLastRow();
-    void ShiftEachRow();
+    public interface ITetromonioControllerService
+    {
+        void Move();
+        void ClearLastRow();
+        void ShiftEachRow();
+    }
 }
