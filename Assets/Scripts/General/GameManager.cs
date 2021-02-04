@@ -7,18 +7,8 @@ namespace Assets.Scripts.General
     public class GameManager : MonoBehaviour
     {
         private static GameObject tetromonioPool;
-        private static float dropFactor = 2f;
-        private static int width = 20;
-        private static int height = 20;
-        private static Transform[,] grid = new Transform[width, height];
-        private static bool isGameOver = false;
-        private IAudioControllerService audioControllerService;
 
-        public static float DropFactor { get { return dropFactor * Time.deltaTime; } }
-        public static int Width { get { return width; } }
-        public static int Height { get { return height; } }
-        public static Transform[,] Grid { get { return grid; } }
-        public static bool IsGameOver { get { return isGameOver; } set { isGameOver = value; } }
+        private IAudioControllerService audioControllerService;
 
         private void Awake()
         {
