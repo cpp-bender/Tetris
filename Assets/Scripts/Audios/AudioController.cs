@@ -4,7 +4,7 @@ using Assets.Scripts.Interfaces;
 
 namespace Assets.Scripts.General
 {
-    public class AudioController : MonoBehaviour, IAudioControllerService
+    public class AudioController : MonoBehaviour, IAudioController
     {
         [SerializeField] Sound[] sounds;
 
@@ -17,20 +17,19 @@ namespace Assets.Scripts.General
             foreach (var sound in sounds)
             {
                 sound.source = gameObject.AddComponent<AudioSource>();
-                sound.source.clip = sound.clip;
-                sound.source.volume = sound.volume;
-                sound.source.pitch = sound.pitch;
-                sound.source.loop = sound.isOnLoop;
+                sound.source.clip = sound.Clip;
+                sound.source.volume = sound.Volume;
+                sound.source.loop = sound.IsOnLoop;
             }
         }
-        public void Play(string audioName)
+        public void Play(GameSound gameSound)
         {
-            Sound soundToBePlayed = Array.Find(sounds, p => p.name == audioName);
+            Sound soundToBePlayed = Array.Find(sounds, p => p.GameSound == gameSound);
             soundToBePlayed.source.Play();
         }
-        public void Stop(string audioName)
+        public void Stop(GameSound gameSound)
         {
-            Sound soundToBeStopped = Array.Find(sounds, p => p.name == audioName);
+            Sound soundToBeStopped = Array.Find(sounds, p => p.GameSound == gameSound);
             soundToBeStopped.source.Stop();
         }
     }

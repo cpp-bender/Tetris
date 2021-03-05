@@ -7,17 +7,18 @@ namespace Assets.Scripts.General
     public class GameManager : MonoBehaviour
     {
         private static GameObject tetromonioPool;
-
-        private IAudioControllerService audioControllerService;
+        private IAudioController audioController;
+        private SpawnController spawnController;
 
         private void Awake()
         {
             CreateTetromonioPool();
-            audioControllerService = FindObjectOfType<AudioController>();
+            audioController = FindObjectOfType<AudioController>();
+            spawnController = FindObjectOfType<SpawnController>();
         }
         private void Start()
         {
-            audioControllerService.Play(name = "MainTheme");
+            audioController.Play(GameSound.MainTheme);
         }
         private void CreateTetromonioPool()
         {
@@ -28,11 +29,11 @@ namespace Assets.Scripts.General
         {
             group.parent = tetromonioPool.transform;
         }
-        public void OnGameOver()
+        public void GameOver()
         {
-            FindObjectOfType<SpawnController>().gameObject.SetActive(false);
-            audioControllerService.Stop(name = "MainTheme");
-            audioControllerService.Play(name = "GameOverSound");
+            spawnController.gameObject.SetActive(false);
+            audioController.Stop(GameSound.MainTheme);
+            audioController.Play(GameSound.GameOverSound);
         }
     }
 }

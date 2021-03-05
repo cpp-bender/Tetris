@@ -1,22 +1,21 @@
 ﻿using Assets.Scripts.General;
 using Assets.Scripts.Interfaces;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Tetromonios
 {
-    public class TetromonioController : MonoBehaviour, ITetromonioControllerService
+    public class TetromonioController : MonoBehaviour, ITetromonioController
     {
         [SerializeField] GameObject centerPoint;
-        private ISpawnControllerService spawnController;
-        private IAudioControllerService audioControllerService;
+        private ISpawnController spawnController;
+        private IAudioController audioController;
         private GameManager gameManager;
         private bool canBeMoved = true;
 
         private void Awake()
         {
             spawnController = FindObjectOfType<SpawnController>();
-            audioControllerService = FindObjectOfType<AudioController>();
+            audioController = FindObjectOfType<AudioController>();
             gameManager = FindObjectOfType<GameManager>();
         }
         private void Start()
@@ -35,7 +34,7 @@ namespace Assets.Scripts.Tetromonios
                 {
                     return false;
                 }
-                if (Scene.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 1)] != null)
+                if (LevelInfo.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 1)] != null)
                 {
                     return false;
                 }
@@ -44,12 +43,12 @@ namespace Assets.Scripts.Tetromonios
         }
         public void Move()
         {
-            if (canBeMoved && !Scene.IsGameOver)
+            if (canBeMoved && !LevelInfo.IsGameOver)
             {
-                transform.position += new Vector3(0f, -Scene.DropFactor, 0f);
+                transform.position += new Vector3(0f, -LevelInfo.DropFactor, 0f);
                 if (!CanBeMoved())
                 {
-                    transform.position -= new Vector3(0f, -Scene.DropFactor, 0f);
+                    transform.position -= new Vector3(0f, -LevelInfo.DropFactor, 0f);
                     canBeMoved = false;
                     SaveTetromonioToGrid();
                     CheckIfLastRowFull();
@@ -91,52 +90,52 @@ namespace Assets.Scripts.Tetromonios
         {
             foreach (Transform block in centerPoint.transform)
             {
-                Scene.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 0.5f)] = block;
+                LevelInfo.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 0.5f)] = block;
             }
         }
         private void CheckIfLastRowFull()
         {
-            for (int width = 0; width < Scene.Width; width++)
+            for (int width = 0; width < LevelInfo.Width; width++)
             {
-                if (Scene.Grid[width, 0] == null)
+                if (LevelInfo.Grid[width, 0] == null)
                 {
                     return;
                 }
             }
-            audioControllerService.Play(name = "RowDeletedSound");
+            audioController.Play(GameSound.RowDeletedSound);
             ClearLastRow();
             ShiftEachRow();
         }
         public void ClearLastRow()
         {
-            for (int width = 0; width < Scene.Width; width++)
+            for (int width = 0; width < LevelInfo.Width; width++)
             {
-               Destroy(Scene.Grid[width, Tetromonio.LastRowHeight].gameObject);
+                Destroy(LevelInfo.Grid[width, Tetromonio.LastRowHeight].gameObject);
             }
         }
         public void ShiftEachRow()
         {
-            for (int width = 0; width < Scene.Width; width++)
+            for (int width = 0; width < LevelInfo.Width; width++)
             {
-                for (int height = 0; height < Scene.Height - 1; height++)
+                for (int height = 0; height < LevelInfo.Height - 1; height++)
                 {
-                    if (Scene.Grid[width, height + 1] != null)
+                    if (LevelInfo.Grid[width, height + 1] != null)
                     {
-                        Scene.Grid[width, height] = Scene.Grid[width, height + 1];
-                        Scene.Grid[width, height].gameObject.transform.position += new Vector3(0f, -1f, 0f);
-                        Scene.Grid[width, height + 1] = null;
+                        LevelInfo.Grid[width, height] = LevelInfo.Grid[width, height + 1];
+                        LevelInfo.Grid[width, height].gameObject.transform.position += new Vector3(0f, -1f, 0f);
+                        LevelInfo.Grid[width, height + 1] = null;
                     }
                 }
             }
         }
         private void CheckIfGameEnded()
         {
-            for (int x = 0; x < Scene.Width; x++)
+            for (int x = 0; x < LevelInfo.Width; x++)
             {
-                if (Scene.Grid[x, Tetromonio.FirstRowHeight] != null)
+                if (LevelInfo.Grid[x, Tetromonio.FirstRowHeight] != null)
                 {
-                    Scene.IsGameOver = true;
-                    gameManager.OnGameOver();
+                    LevelInfo.IsGameOver = true;
+                    gameManager.GameOver();
                     return;
                 }
             }

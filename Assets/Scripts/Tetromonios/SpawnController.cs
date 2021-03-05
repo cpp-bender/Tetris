@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Tetromonios
 {
-    public class SpawnController : MonoBehaviour, ISpawnControllerService
+    public class SpawnController : MonoBehaviour, ISpawnController
     {
         [SerializeField] GameObject[] tetromonios;
 
