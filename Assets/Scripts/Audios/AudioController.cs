@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using Assets.Scripts.Interfaces;
 
 namespace Assets.Scripts.General
@@ -24,12 +23,12 @@ namespace Assets.Scripts.General
         }
         public void Play(GameSound gameSound)
         {
-            Sound soundToBePlayed = Array.Find(sounds, p => p.GameSound == gameSound);
+            Sound soundToBePlayed =System.Array.Find(sounds, p => p.GameSound == gameSound);
             soundToBePlayed.source.Play();
         }
         public void Stop(GameSound gameSound)
         {
-            Sound soundToBeStopped = Array.Find(sounds, p => p.GameSound == gameSound);
+            Sound soundToBeStopped =System.Array.Find(sounds, p => p.GameSound == gameSound);
             soundToBeStopped.source.Stop();
         }
     }

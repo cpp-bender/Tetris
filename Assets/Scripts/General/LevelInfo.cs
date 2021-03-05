@@ -2,18 +2,34 @@
 
 namespace Assets.Scripts.General
 {
-    class LevelInfo : MonoBehaviour
+    [CreateAssetMenu(menuName = "Tetris/Level/Level Data")]
+    class LevelInfo : ScriptableObject
     {
-        private static float dropFactor = .5f * Time.deltaTime;
-        private static int width = 20;
-        private static int height = 20;
-        private static bool isGameOver = false;
-        private static Transform[,] grid = new Transform[width, height];
+        [SerializeField] private float dropSpeed;
 
-        public static float DropFactor { get => dropFactor; }
-        public static int Width { get => width; }
-        public static int Height { get => height; }
-        public static bool IsGameOver { get => isGameOver; set => isGameOver = value; }
-        public static Transform[,] Grid { get => grid; set => grid = value; }
+        private bool isGameOver;
+        private int width;
+        private int height;
+        private int lastRowHeight;
+        private int firstRowHeight;
+        private Transform[,] grid;
+
+        public void InitializeLevelData()
+        {
+            width = 20;
+            height = 20;
+            lastRowHeight = 0;
+            firstRowHeight = 18;
+            isGameOver = false;
+            grid = new Transform[Width, Height];
+        }
+
+        public float DropFactor { get => dropSpeed; }
+        public int Width { get => width; }
+        public int Height { get => height; }
+        public bool IsGameOver { get => isGameOver; set => isGameOver = value; }
+        public Transform[,] Grid { get => grid; set => grid = value; }
+        public int LastRowHeight { get => lastRowHeight; }
+        public int FirstRowHeight { get => firstRowHeight; }
     }
 }

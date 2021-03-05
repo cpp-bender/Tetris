@@ -5,6 +5,7 @@ namespace Assets.Scripts.General
 {
     public class GameManager : MonoBehaviour
     {
+        [SerializeField] private LevelInfo level;
         private static GameObject tetromonioPool;
         private IAudioController audioController;
 
@@ -15,6 +16,7 @@ namespace Assets.Scripts.General
             CreateTetromonioPool();
             audioController = FindObjectOfType<AudioController>();
             OnGameOver += GameOver;
+            level.InitializeLevelData();
         }
 
         private void Start()
@@ -24,7 +26,7 @@ namespace Assets.Scripts.General
 
         private void Update()
         {
-            if (!LevelInfo.IsGameOver)
+            if (!level.IsGameOver)
             {
                 CheckIfGameEnded();
             }
@@ -46,11 +48,11 @@ namespace Assets.Scripts.General
         }
         private void CheckIfGameEnded()
         {
-            for (int x = 0; x < LevelInfo.Width; x++)
+            for (int x = 0; x < level.Width; x++)
             {
-                if (LevelInfo.Grid[x, Tetromonio.FirstRowHeight] != null)
+                if (level.Grid[x, level.FirstRowHeight] != null)
                 {
-                    LevelInfo.IsGameOver = true;
+                    level.IsGameOver = true;
                     OnGameOver?.Invoke();
                     return;
                 }

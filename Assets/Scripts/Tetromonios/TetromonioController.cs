@@ -7,6 +7,7 @@ namespace Assets.Scripts.Tetromonios
     public class TetromonioController : MonoBehaviour, ITetromonioController
     {
         [SerializeField] GameObject centerPoint;
+        [SerializeField] private LevelInfo level;
         private ISpawnController spawnController;
         private IAudioController audioController;
         private bool canBeMoved = true;
@@ -32,7 +33,7 @@ namespace Assets.Scripts.Tetromonios
                 {
                     return false;
                 }
-                if (LevelInfo.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 1)] != null)
+                if (level.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 1)] != null)
                 {
                     return false;
                 }
@@ -41,12 +42,12 @@ namespace Assets.Scripts.Tetromonios
         }
         public void Move()
         {
-            if (canBeMoved && !LevelInfo.IsGameOver)
+            if (canBeMoved && !level.IsGameOver)
             {
-                transform.position += new Vector3(0f, -LevelInfo.DropFactor, 0f);
+                transform.position += new Vector3(0f, -level.DropFactor, 0f);
                 if (!CanBeMoved())
                 {
-                    transform.position -= new Vector3(0f, -LevelInfo.DropFactor, 0f);
+                    transform.position -= new Vector3(0f, -level.DropFactor, 0f);
                     canBeMoved = false;
                     SaveTetromonioToGrid();
                     CheckIfLastRowFull();
@@ -83,10 +84,10 @@ namespace Assets.Scripts.Tetromonios
                 }
                 else if (Input.GetKey(KeyCode.DownArrow))
                 {
-                    transform.position += new Vector3(0f, -LevelInfo.DropFactor * 2f, 0f);
+                    transform.position += new Vector3(0f, -level.DropFactor * 2f, 0f);
                     if (!canBeMoved)
                     {
-                        transform.position -= new Vector3(0f, -LevelInfo.DropFactor * 2f, 0f);
+                        transform.position -= new Vector3(0f, -level.DropFactor * 2f, 0f);
                     }
                 }
             }
@@ -95,14 +96,14 @@ namespace Assets.Scripts.Tetromonios
         {
             foreach (Transform block in centerPoint.transform)
             {
-                LevelInfo.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 0.5f)] = block;
+                level.Grid[Mathf.FloorToInt(block.position.x - 0.5f), Mathf.FloorToInt(block.position.y - 0.5f)] = block;
             }
         }
         private void CheckIfLastRowFull()
         {
-            for (int width = 0; width < LevelInfo.Width; width++)
+            for (int width = 0; width < level.Width; width++)
             {
-                if (LevelInfo.Grid[width, 0] == null)
+                if (level.Grid[width, 0] == null)
                 {
                     return;
                 }
@@ -113,22 +114,22 @@ namespace Assets.Scripts.Tetromonios
         }
         public void ClearLastRow()
         {
-            for (int width = 0; width < LevelInfo.Width; width++)
+            for (int width = 0; width < level.Width; width++)
             {
-                Destroy(LevelInfo.Grid[width, Tetromonio.LastRowHeight].gameObject);
+                Destroy(level.Grid[width, level.LastRowHeight].gameObject);
             }
         }
         public void ShiftEachRow()
         {
-            for (int width = 0; width < LevelInfo.Width; width++)
+            for (int width = 0; width < level.Width; width++)
             {
-                for (int height = 0; height < LevelInfo.Height - 1; height++)
+                for (int height = 0; height < level.Height - 1; height++)
                 {
-                    if (LevelInfo.Grid[width, height + 1] != null)
+                    if (level.Grid[width, height + 1] != null)
                     {
-                        LevelInfo.Grid[width, height] = LevelInfo.Grid[width, height + 1];
-                        LevelInfo.Grid[width, height].gameObject.transform.position += new Vector3(0f, -1f, 0f);
-                        LevelInfo.Grid[width, height + 1] = null;
+                        level.Grid[width, height] = level.Grid[width, height + 1];
+                        level.Grid[width, height].gameObject.transform.position += new Vector3(0f, -1f, 0f);
+                        level.Grid[width, height + 1] = null;
                     }
                 }
             }

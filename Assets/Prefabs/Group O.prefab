@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerPoint: {fileID: 5150891614215110737}
+  level: {fileID: 11400000, guid: 6d6d59586f1255e41884b42925bbc396, type: 2}
 --- !u!1 &8718218308535763847
 GameObject:
   m_ObjectHideFlags: 0
