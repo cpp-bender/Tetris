@@ -9,14 +9,12 @@ namespace Assets.Scripts.Tetromonios
         [SerializeField] GameObject centerPoint;
         private ISpawnController spawnController;
         private IAudioController audioController;
-        private GameManager gameManager;
         private bool canBeMoved = true;
 
         private void Awake()
         {
             spawnController = FindObjectOfType<SpawnController>();
             audioController = FindObjectOfType<AudioController>();
-            gameManager = FindObjectOfType<GameManager>();
         }
         private void Start()
         {
@@ -53,7 +51,6 @@ namespace Assets.Scripts.Tetromonios
                     SaveTetromonioToGrid();
                     CheckIfLastRowFull();
                     GameManager.AddTetromonioToPool(transform);
-                    CheckIfGameEnded();
                     spawnController.Spawn();
                     return;
                 }
@@ -82,6 +79,14 @@ namespace Assets.Scripts.Tetromonios
                     if (!CanBeMoved())
                     {
                         centerPoint.transform.eulerAngles += new Vector3(0f, 0f, 90f);
+                    }
+                }
+                else if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    transform.position += new Vector3(0f, -LevelInfo.DropFactor * 2f, 0f);
+                    if (!canBeMoved)
+                    {
+                        transform.position -= new Vector3(0f, -LevelInfo.DropFactor * 2f, 0f);
                     }
                 }
             }
@@ -125,18 +130,6 @@ namespace Assets.Scripts.Tetromonios
                         LevelInfo.Grid[width, height].gameObject.transform.position += new Vector3(0f, -1f, 0f);
                         LevelInfo.Grid[width, height + 1] = null;
                     }
-                }
-            }
-        }
-        private void CheckIfGameEnded()
-        {
-            for (int x = 0; x < LevelInfo.Width; x++)
-            {
-                if (LevelInfo.Grid[x, Tetromonio.FirstRowHeight] != null)
-                {
-                    LevelInfo.IsGameOver = true;
-                    gameManager.GameOver();
-                    return;
                 }
             }
         }
